@@ -1,4 +1,6 @@
 package com.pluralsight;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Reservation {
     private String suiteStyle;

@@ -31,6 +31,17 @@ public class Room {
     public boolean isVacancy() {
         return !occupancy && !sanitize;
     }
+
+    public void suiteClean() {
+        sanitize = false;
+    }
+    public void checkIn() {
+        occupancy = true;
+        sanitize = true;
+    }
+    public void checkOut() {
+        suiteClean();
+    }
 }
 //    public static void main(String[] args) { // Tester
 //
