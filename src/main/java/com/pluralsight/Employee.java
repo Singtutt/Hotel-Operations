@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,16 +67,39 @@ public class Employee {
             punchTime = time;
         }
     }
-    public static void main(String[] args) { // Tester
-        Employee employee = new Employee(1, "Lazy Susan", "Food", 16.0, 45);
-        employee.shiftCard(45.0);
-
-        System.out.println("Employee ID: " + employee.getEmployeeId());
-        System.out.println("Employee Name: " + employee.getName());
-        System.out.println("Department: " + employee.getDepartment());
-        System.out.println("Total Hours Worked: " + employee.getShiftWorked());
-        System.out.println("Regular Pay: $" + employee.getRegularWage());
-        System.out.println("Overtime Pay: $" + employee.getOvertimeWage());
-        System.out.println("Total Pay: $" + employee.getPayRoll());
+    public void punchIn(double time) { // fixed punchIn return
+        // In Progress
     }
+    public void punchIn() {
+        LocalDateTime presentTime = LocalDateTime.now(); // Trial 1
+        int presentHour = presentTime.getHour();
+        int presentMinute = presentTime.getMinute();
+        double time = presentHour + (presentMinute / 60.0);
+        punchIn(time);
+    }
+    public void punchOut(double time) { // fixed punchOut return
+        // In Progress
+    }
+    public void punchOut() {
+        LocalDateTime presentTime = LocalDateTime.now(); // Trial 1
+        int presentHour = presentTime.getHour();
+        int presentMinute = presentTime.getMinute();
+        double time = presentHour + (presentMinute / 60.0);
+        shiftWorked += (time - punchTime);
+        shiftTime.add(time - punchTime);
+        punchOut(time);
+    }
+
 }
+//    public static void main(String[] args) { // Tester
+//        Employee employee = new Employee(1, "Lazy Susan", "Food", 16.0, 45);
+//        employee.shiftCard(45.0);
+//
+//        System.out.println("Employee ID: " + employee.getEmployeeId());
+//        System.out.println("Employee Name: " + employee.getName());
+//        System.out.println("Department: " + employee.getDepartment());
+//        System.out.println("Total Hours Worked: " + employee.getShiftWorked());
+//        System.out.println("Regular Pay: $" + employee.getRegularWage());
+//        System.out.println("Overtime Pay: $" + employee.getOvertimeWage());
+//        System.out.println("Total Pay: $" + employee.getPayRoll());
+//    }
