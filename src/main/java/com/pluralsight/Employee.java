@@ -14,7 +14,7 @@ public class Employee {
 
     public Employee(int employeeId, String name, String department, double wage, double shiftWorked) {
         this.employeeId = employeeId;
-        this.name =name;
+        this.name = name;
         this.department = department;
         this.wage = wage;
         this.shiftWorked = shiftWorked;
@@ -36,7 +36,7 @@ public class Employee {
         return wage;
     }
 
-    public double getShiftTime() {
+    public double getShiftWorked() {
         return shiftWorked;
     }
     public double getPayRoll() {
@@ -49,10 +49,12 @@ public class Employee {
         }
     }
     public  double getRegularWage() {
-        return Math.min(40, shiftWorked);
+        return Math.min(40, shiftWorked) * wage;
     }
     public double getOvertimeWage() {
-        return Math.max(0, shiftWorked - 40);
+        double regularWage = Math.min(40, shiftWorked);
+        double overtimeWage = Math.max(0, shiftWorked - 40);
+        return overtimeWage * (wage * 1.5);
     }
 
     public void shiftCard(double time) {
@@ -63,5 +65,17 @@ public class Employee {
             shiftTime.add(time - punchTime);
             punchTime = time;
         }
+    }
+    public static void main(String[] args) { // Tester
+        Employee employee = new Employee(1, "Lazy Susan", "Food", 16.0, 45);
+        employee.shiftCard(45.0);
+
+        System.out.println("Employee ID: " + employee.getEmployeeId());
+        System.out.println("Employee Name: " + employee.getName());
+        System.out.println("Department: " + employee.getDepartment());
+        System.out.println("Total Hours Worked: " + employee.getShiftWorked());
+        System.out.println("Regular Pay: $" + employee.getRegularWage());
+        System.out.println("Overtime Pay: $" + employee.getOvertimeWage());
+        System.out.println("Total Pay: $" + employee.getPayRoll());
     }
 }
