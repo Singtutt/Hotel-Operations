@@ -2,45 +2,45 @@ package com.pluralsight;
 
 public class Room {
     private int bedCount;
-    private double charge;
-    private boolean occupancy;
-    private boolean sanitize;
+    private double price;
+    private boolean occupied;
+    private boolean dirty;
 
-    public Room(int bedCount, double charge) {
+    public Room(int bedCount, double price) {
         this.bedCount = bedCount;
-        this.charge = charge;
-        this.occupancy = false;
-        this.sanitize = false;
+        this.price = price;
+        this.occupied = false;
+        this.dirty = false;
     }
 
     public int getBedCount() {
         return bedCount;
     }
 
-    public double getCharge() {
-        return charge;
+    public double getPrice() {
+        return price;
     }
 
-    public boolean isOccupancy() {
-        return occupancy;
+    public boolean isOccupied() {
+        return occupied;
     }
 
-    public boolean isSanitize() {
-        return sanitize;
+    public boolean isDirty() {
+        return dirty;
     }
-    public boolean isVacancy() {
-        return !occupancy && !sanitize;
+    public boolean isAvailable() {
+        return !occupied && !dirty;
     }
 
-    public void suiteClean() {
-        sanitize = false;
+    public void roomClean() {
+        dirty = false;
     }
     public void checkIn() {
-        occupancy = true;
-        sanitize = true;
+        occupied = true;
+        dirty = true;
     }
     public void checkOut() {
-        suiteClean();
+        occupied = false;
     }
 }
 //    public static void main(String[] args) { // Tester

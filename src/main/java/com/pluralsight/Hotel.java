@@ -15,12 +15,12 @@ public class Hotel {
         this.bookedBasicsRooms = 0;
     }
 
-    public Hotel(String name, int numberOfSuites, int numberOfRooms, int bookedSuites, int roomsBooked) {
+    public Hotel(String name, int numberOfSuites, int numberOfRooms, int bookedSuites, int bookedBasicsRooms) {
         this.name = name;
         this.numberOfSuites = numberOfSuites;
         this.numberOfRooms = numberOfRooms;
         this.bookedSuites = bookedSuites;
-        this.bookedBasicsRooms = roomsBooked;
+        this.bookedBasicsRooms = bookedBasicsRooms;
     }
 
     public boolean bookRoom(int numberOfRooms, boolean isSuite) {

@@ -1,46 +1,44 @@
 package com.pluralsight;
-import java.util.List;
-import java.util.ArrayList;
 
 public class Reservation {
-    private String suiteStyle;
-    private double costPerNight;
-    private int stayPeriod;
+    private String roomType;
+    private double pricePerNight;
+    private int numberOfNights;
     private boolean isWeekend;
 
-    public Reservation(String suiteStyle, int stayPeriod, boolean isWeekend) {
-        this.suiteStyle = suiteStyle;
-        this.stayPeriod = stayPeriod;
+    public Reservation(String roomType, int numberOfNights, boolean isWeekend) {
+        this.roomType = roomType;
+        this.numberOfNights = numberOfNights;
         this.isWeekend = isWeekend;
-        if (suiteStyle.equals("king")) { // Suite Style 1
-            this.costPerNight = 139.00;
-        } else if (suiteStyle.equals("double")) { // Suite Style 2
-            this.costPerNight = 124.00;
+        if (roomType.equals("king")) { // Suite Style 1
+            this.pricePerNight = 139.00;
+        } else if (roomType.equals("double")) { // Suite Style 2
+            this.pricePerNight = 124.00;
         }
     }
 
-    public String getSuiteStyle() {
-        return suiteStyle;
+    public String getRoomType() { // E1
+        return roomType;
     }
 
-    public void setSuiteStyle(String suiteStyle) {
-        this.suiteStyle = suiteStyle;
+    public void setRoomType(String roomType) { // E1
+        this.roomType = roomType;
     }
 
-    public double getPrice() {
-        double priceTotal = costPerNight * stayPeriod;
+    public double getReservationTotal() { // E1
+        double total = pricePerNight * numberOfNights;
         if (isWeekend) {
-            priceTotal *= 1.10; // 10% "weekend" up-charge
+            total *= 1.10; // 10% "weekend" up-charge
         }
-        return priceTotal;
+        return total;
     }
 
-    public int getStayPeriod() {
-        return stayPeriod;
+    public int getNumberOfNights() {
+        return numberOfNights;
     }
 
-    public void setStayPeriod(int stayPeriod) {
-        this.stayPeriod = stayPeriod;
+    public void setNumberOfNights(int numberOfNights) {
+        this.numberOfNights = numberOfNights;
     }
 
     public boolean isWeekend() {
@@ -52,7 +50,7 @@ public class Reservation {
     }
 
     public double getTotalCost() {
-        double priceTotal = getPrice();
+        double priceTotal = getReservationTotal();
         if (isWeekend) {
             priceTotal *= 1.10;
         }

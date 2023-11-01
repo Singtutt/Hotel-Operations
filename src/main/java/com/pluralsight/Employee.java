@@ -1,24 +1,18 @@
 package com.pluralsight;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Employee {
     private int employeeId;
-    private String name;
-    private String department;
-    private double wage;
-    private double shiftWorked;
-    private List<Double> shiftTime = new ArrayList<>();
-    private double punchTime = 0.0;
+    private String name, department;
+    private double payRate, hoursWorked, pastPunchTime;
 
-    public Employee(int employeeId, String name, String department, double wage, double shiftWorked) {
+    public Employee(int employeeId, String name, String department, double payRate) {
         this.employeeId = employeeId;
         this.name = name;
         this.department = department;
-        this.wage = wage;
-        this.shiftWorked = shiftWorked;
+        this.payRate = payRate;
+        this.hoursWorked = 0.0;
+        this.pastPunchTime = 0.0;
     }
 
     public int getEmployeeId() {
@@ -33,67 +27,62 @@ public class Employee {
         return department;
     }
 
-    public double getWage() {
-        return wage;
+    public double getPayRate() {
+        return payRate;
     }
 
-    public double getShiftWorked() {
-        return shiftWorked;
-    }
-
-    public double getPayRoll() {
-        if (shiftWorked <= 40) {
-            return wage * shiftWorked;
+    public double getTotalPay() {
+        if (hoursWorked <= 40) {
+            return payRate * hoursWorked;
         } else {
-            double regularWage = wage * 40;
-            double overtimeWage = (shiftWorked - 40) * (wage * 1.5);
-            return regularWage + overtimeWage;
+            double regularPayRate = payRate * 40;
+            double overtimePayRate = (hoursWorked - 40) * (payRate * 1.5);
+            return regularPayRate + overtimePayRate;
         }
     }
 
-    public  double getRegularWage() {
-        return Math.min(40, shiftWorked) * wage;
+    public double getRegularHours() {
+        return Math.min(hoursWorked, 40);
     }
 
-    public double getOvertimeWage() {
-        double regularWage = Math.min(40, shiftWorked);
-        double overtimeWage = Math.max(0, shiftWorked - 40);
-        return overtimeWage * (wage * 1.5);
+    public double getOvertimeHours() {
+        return Math.min(hoursWorked - 40, 0);
     }
 
-    public void shiftCard(double time) {
-        if (punchTime == 0.0) {
-            punchTime = time;
+    public double getTime() {
+        double hour = LocalDateTime.now().getHour();
+        double minute = (double) LocalDateTime.now().getMinute() / 60;
+        return  hour + minute;
+    }
+
+    public void punchTimeCard(double time) {
+        double currentTime = getTime();
+        if (pastPunchTime == 0.0) {
+            pastPunchTime = currentTime;
         } else {
-            shiftWorked += (time - punchTime);
-            shiftTime.add(time - punchTime);
-            punchTime = time;
+            hoursWorked += (currentTime - pastPunchTime);
+            pastPunchTime = currentTime;
         }
     }
 
     public void punchIn(double time) {
-        punchTime = time;
-    }
-
-    public void punchIn() {
-        LocalDateTime presentTime = LocalDateTime.now(); // Trial 1
-        int presentHour = presentTime.getHour();
-        int presentMinute = presentTime.getMinute();
-        double time = presentHour + (presentMinute / 60.0);
-        punchIn(time);
+        pastPunchTime = time;
     }
 
     public void punchOut(double time) {
-        shiftWorked += (time - punchTime);
-        shiftTime.add(time - punchTime);
+        double currentTime = getTime();
+        if (pastPunchTime != 0.0) {
+            hoursWorked += (currentTime - pastPunchTime);
+            pastPunchTime = currentTime;
+        }
     }
 
-    public void punchOut() {
-        LocalDateTime presentTime = LocalDateTime.now(); // Trial 1
-        int presentHour = presentTime.getHour();
-        int presentMinute = presentTime.getMinute();
-        double time = presentHour + (presentMinute / 60.0);
-        punchOut(time);
+    public double getHoursWorked() {
+        double currentTime = getTime();
+        if (pastPunchTime != 0.0) {
+            hoursWorked += (currentTime - pastPunchTime);
+        }
+        return hoursWorked;
     }
 }
 //    public static void main(String[] args) { // Tester
