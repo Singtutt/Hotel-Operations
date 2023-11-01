@@ -40,6 +40,7 @@ public class Employee {
     public double getShiftWorked() {
         return shiftWorked;
     }
+
     public double getPayRoll() {
         if (shiftWorked <= 40) {
             return wage * shiftWorked;
@@ -49,9 +50,11 @@ public class Employee {
             return regularWage + overtimeWage;
         }
     }
+
     public  double getRegularWage() {
         return Math.min(40, shiftWorked) * wage;
     }
+
     public double getOvertimeWage() {
         double regularWage = Math.min(40, shiftWorked);
         double overtimeWage = Math.max(0, shiftWorked - 40);
@@ -67,9 +70,11 @@ public class Employee {
             punchTime = time;
         }
     }
-    public void punchIn(double time) { // fixed punchIn return
-        // In Progress
+
+    public void punchIn(double time) {
+        punchTime = time;
     }
+
     public void punchIn() {
         LocalDateTime presentTime = LocalDateTime.now(); // Trial 1
         int presentHour = presentTime.getHour();
@@ -77,19 +82,19 @@ public class Employee {
         double time = presentHour + (presentMinute / 60.0);
         punchIn(time);
     }
-    public void punchOut(double time) { // fixed punchOut return
-        // In Progress
+
+    public void punchOut(double time) {
+        shiftWorked += (time - punchTime);
+        shiftTime.add(time - punchTime);
     }
+
     public void punchOut() {
         LocalDateTime presentTime = LocalDateTime.now(); // Trial 1
         int presentHour = presentTime.getHour();
         int presentMinute = presentTime.getMinute();
         double time = presentHour + (presentMinute / 60.0);
-        shiftWorked += (time - punchTime);
-        shiftTime.add(time - punchTime);
         punchOut(time);
     }
-
 }
 //    public static void main(String[] args) { // Tester
 //        Employee employee = new Employee(1, "Lazy Susan", "Food", 16.0, 45);

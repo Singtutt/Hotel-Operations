@@ -22,9 +22,11 @@ public class Reservation {
     public String getSuiteStyle() {
         return suiteStyle;
     }
+
     public void setSuiteStyle(String suiteStyle) {
         this.suiteStyle = suiteStyle;
     }
+
     public double getPrice() {
         double priceTotal = costPerNight * stayPeriod;
         if (isWeekend) {
@@ -32,19 +34,28 @@ public class Reservation {
         }
         return priceTotal;
     }
+
     public int getStayPeriod() {
         return stayPeriod;
     }
+
     public void setStayPeriod(int stayPeriod) {
         this.stayPeriod = stayPeriod;
     }
+
     public boolean isWeekend() {
         return isWeekend;
     }
+
     public void setWeekend(boolean weekend) {
         this.isWeekend = weekend;
     }
+
     public double getTotalCost() {
-        return getPrice();
+        double priceTotal = getPrice();
+        if (isWeekend) {
+            priceTotal *= 1.10;
+        }
+        return priceTotal;
     }
 }
